@@ -8,6 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_keyboard_visibility: ^3.0.0
+  extended_text_field: ^3.0.1
 
 dev_dependencies:
   flutter_test:

@@ -229,6 +229,7 @@ library flutter_typeahead;
 import 'dart:async';
 import 'dart:math';
 
+import 'package:extended_text_field/extended_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
@@ -593,6 +594,8 @@ class TypeAheadField<T> extends StatefulWidget {
   /// that the TypeAhead widget displays
   final TextFieldConfiguration textFieldConfiguration;
 
+  final SpecialTextSpanBuilder specialTextSpanBuilder;
+
   /// How far below the text field should the suggestions box be
   ///
   /// Defaults to 5.0
@@ -684,7 +687,9 @@ class TypeAheadField<T> extends StatefulWidget {
       this.hideSuggestionsOnKeyboardHide: true,
       this.keepSuggestionsOnLoading: true,
       this.keepSuggestionsOnSuggestionSelected: false,
-      this.autoFlipDirection: false})
+      this.autoFlipDirection: false,
+      this.specialTextSpanBuilder,
+      })
       : assert(suggestionsCallback != null),
         assert(itemBuilder != null),
         assert(onSuggestionSelected != null),
@@ -900,7 +905,8 @@ class _TypeAheadFieldState<T> extends State<TypeAheadField<T>>
   Widget build(BuildContext context) {
     return CompositedTransformTarget(
       link: this._layerLink,
-      child: TextField(
+      child: ExtendedTextField(
+        specialTextSpanBuilder: widget.specialTextSpanBuilder,
         focusNode: this._effectiveFocusNode,
         controller: this._effectiveController,
         decoration: widget.textFieldConfiguration.decoration,
